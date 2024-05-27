@@ -64,6 +64,7 @@ require (
 
 require (
 	github.com/jackc/pgx/v4 v4.18.3
+	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
 	github.com/nats-io/nats.go v1.35.0
 	github.com/uptrace/bun v1.2.1

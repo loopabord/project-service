@@ -3,10 +3,13 @@ package main
 import (
 	"context"
 	"log"
+	"os"
 	"projectservice/app"
 	"projectservice/database"
 
 	"github.com/nats-io/nats.go"
+
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func main() {
@@ -33,7 +36,8 @@ func main() {
 	}
 
 	// Connect to NATS server
-	natsURL := "nats://nats.loopabord.svc.cluster.local:4222"
+	natsURL := os.Getenv("NATS_URL")
+
 	nc, err := nats.Connect(natsURL)
 	if err != nil {
 		log.Fatal(err)

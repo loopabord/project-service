@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	_ "github.com/lib/pq" // Import the pq driver
 	"github.com/uptrace/bun"
@@ -15,7 +16,12 @@ import (
 var db *bun.DB
 
 func Connect() error {
-	dsn := "postgres://postgres:password@postgresql-postgresql-ha-pgpool.loopabord.svc.cluster.local:5432/project?sslmode=disable"
+	databaseUser := os.Getenv("DATABASE_USER")
+	databasePassword := os.Getenv("DATABASE_PASSWORD")
+	databaseURL := os.Getenv("DATABASE_URL")
+	database := os.Getenv("DATABASE")
+
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=disable", databaseUser, databasePassword, databaseURL, database)
 	// dsn := "unix://user:pass@dbname/var/run/postgresql/.s.PGSQL.5432"
 	pgconn := pgdriver.NewConnector(pgdriver.WithDSN(dsn))
 	sqldb := sql.OpenDB(pgconn)
@@ -29,7 +35,13 @@ func Connect() error {
 }
 
 func Initialize() error {
-	dsn := "postgres://postgres:password@postgresql-postgresql-ha-pgpool.loopabord.svc.cluster.local:5432/postgres?sslmode=disable"
+	databaseUser := os.Getenv("DATABASE_USER")
+	databasePassword := os.Getenv("DATABASE_PASSWORD")
+	databaseURL := os.Getenv("DATABASE_URL")
+	database := os.Getenv("DATABASE")
+
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=disable", databaseUser, databasePassword, databaseURL, database)
+
 	sqldb, err := sql.Open("postgres", dsn)
 	if err != nil {
 		return fmt.Errorf("failed to connect to postgres database: %w", err)
