@@ -107,7 +107,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: lowercase github.repository
         run: |
-          echo "IMAGE_NAME=${{ github.event.repository.name@L }}" >> ${GITHUB_ENV}
+          echo "IMAGE_NAME=`echo ${{github.event.repository.name}} | tr '[:upper:]' '[:lower:]'`" >>${GITHUB_ENV}
       - name: Prep helm chart
         run: |
           mv ./.helm/Chart.yaml ./.helm/Chart.old.yaml
