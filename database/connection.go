@@ -29,7 +29,7 @@ func Connect() error {
 }
 
 func Initialize() error {
-	dsn := "postgres://postgres:password@localhost:5432/postgres?sslmode=disable"
+	dsn := "postgres://postgres:password@postgresql-postgresql-ha-pgpool.loopabord.svc.cluster.local:5432/postgres?sslmode=disable"
 	sqldb, err := sql.Open("postgres", dsn)
 	if err != nil {
 		return fmt.Errorf("failed to connect to postgres database: %w", err)
