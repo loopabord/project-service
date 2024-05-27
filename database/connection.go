@@ -15,7 +15,7 @@ import (
 var db *bun.DB
 
 func Connect() error {
-	dsn := "postgres://postgres:password@localhost:5432/project?sslmode=disable"
+	dsn := "postgres://postgres:password@postgresql-postgresql-ha-pgpool.loopabord.svc.cluster.local:5432/project?sslmode=disable"
 	// dsn := "unix://user:pass@dbname/var/run/postgresql/.s.PGSQL.5432"
 	pgconn := pgdriver.NewConnector(pgdriver.WithDSN(dsn))
 	sqldb := sql.OpenDB(pgconn)
