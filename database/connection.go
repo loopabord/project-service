@@ -41,7 +41,7 @@ func Initialize() error {
 	database := os.Getenv("DATABASE")
 
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=disable", databaseUser, databasePassword, databaseURL, database)
-
+	log.Println(dsn)
 	sqldb, err := sql.Open("postgres", dsn)
 	if err != nil {
 		return fmt.Errorf("failed to connect to postgres database: %w", err)
