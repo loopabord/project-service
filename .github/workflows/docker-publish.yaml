@@ -129,7 +129,7 @@ jobs:
             --set=env[0].name=NATS_URL --set=env[0].value=${{ secrets.NATS_URL }} 
             --set=env[1].name=DATABASE --set=env[1].value=${{ secrets.DATABASE }} 
             --set=env[2].name=DATABASE_URL --set=env[2].value=${{ secrets.DATABASE_URL }} 
-            --set=env[2].name=DATABASE_USER --set=env[2].value=${{ secrets.DATABASE_USER }} 
-            --set=env[2].name=DATABASE_PASSWORD --set=env[2].value=${{ secrets.DATABASE_PASSWORD }} 
+            --set=env[3].name=DATABASE_USER --set=env[3].value=${{ secrets.DATABASE_USER }} 
+            --set=env[4].name=DATABASE_PASSWORD --set=env[4].value=${{ secrets.DATABASE_PASSWORD }} 
             --timeout 1m0s
           kubeconfig: '${{ secrets.KUBECONFIG }}'
