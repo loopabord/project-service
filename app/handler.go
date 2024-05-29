@@ -84,3 +84,14 @@ func DeleteProjectHandler() nats.MsgHandler {
 		return DeleteProject(ctx, id)
 	})
 }
+
+// UpdateUserHandler handles the UpdateUser messages
+func UpdateUserHandler() nats.MsgHandler {
+	return handleMessage(func(ctx context.Context, data []byte) (interface{}, error) {
+		id, err := uuid.Parse(string(data))
+		if err != nil {
+			return nil, err
+		}
+		return DeleteProject(ctx, id)
+	})
+}

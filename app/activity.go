@@ -96,3 +96,17 @@ func DeleteProject(ctx context.Context, id uuid.UUID) (string, error) {
 	}
 	return result.(string), nil
 }
+
+func UpdateUser(ctx context.Context, user entity.User) (string, error) {
+	result, err := withDBAndLogger(ctx, func(ctx context.Context, logger *zap.SugaredLogger) (interface{}, error) {
+		err := database.UpdateUser(ctx, &user, logger)
+		if err != nil {
+			return "no good (bad)", err // Return an error if deletion fails
+		}
+		return "good yes", nil
+	})
+	if err != nil {
+		return "no good (bad)", err
+	}
+	return result.(string), nil
+}
