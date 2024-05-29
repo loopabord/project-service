@@ -3,16 +3,14 @@ package database
 import (
 	"context"
 	"projectservice/entity"
-	"time"
 
 	"github.com/google/uuid"
 	"go.uber.org/zap"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func CreateProject(ctx context.Context, project *entity.Project, logger *zap.SugaredLogger) error {
 	logger.Infof("createdat %s", project.CreatedAt)
-	var id uuid.UUID
+	var id string
 	_, err := db.NewInsert().Model(project).ExcludeColumn("created_at").Returning("id", "created_at").Exec(ctx, &id)
 	if err != nil {
 		logger.Errorw("Failed to insert project", "error", err)
@@ -27,11 +25,10 @@ func CreateProject(ctx context.Context, project *entity.Project, logger *zap.Sug
 
 	// Update the project object with the generated ID
 	project.Id = id
-	project.CreatedAt = *timestamppb.New(time.Now())
 	return nil
 }
 
-func ReadAllByAuthorId(ctx context.Context, authorId uuid.UUID, logger *zap.SugaredLogger) ([]entity.Project, error) {
+func ReadAllByAuthorId(ctx context.Context, authorId string, logger *zap.SugaredLogger) ([]entity.Project, error) {
 	logger.Info("Retrieving projects by author ID")
 
 	var projects []entity.Project

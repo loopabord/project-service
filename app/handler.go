@@ -69,10 +69,7 @@ func ReadProjectHandler() nats.MsgHandler {
 // ReadAllProjectsHandler handles the ReadAllProjects messages
 func ReadAllProjectsHandler() nats.MsgHandler {
 	return handleMessage(func(ctx context.Context, data []byte) (interface{}, error) {
-		id, err := uuid.Parse(string(data))
-		if err != nil {
-			return nil, err
-		}
+		id := string(data)
 		return ReadAllProjects(ctx, id)
 	})
 }

@@ -69,7 +69,7 @@ func ReadProject(ctx context.Context, id uuid.UUID) (entity.Project, error) {
 	return *result.(*entity.Project), nil
 }
 
-func ReadAllProjects(ctx context.Context, authorId uuid.UUID) ([]entity.Project, error) {
+func ReadAllProjects(ctx context.Context, authorId string) ([]entity.Project, error) {
 	result, err := withDBAndLogger(ctx, func(ctx context.Context, logger *zap.SugaredLogger) (interface{}, error) {
 		projects, err := database.ReadAllByAuthorId(ctx, authorId, logger)
 		if err != nil {
