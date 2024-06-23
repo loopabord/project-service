@@ -88,10 +88,10 @@ func DeleteProjectHandler() nats.MsgHandler {
 // UpdateUserHandler handles the UpdateUser messages
 func UpdateUserHandler() nats.MsgHandler {
 	return handleMessage(func(ctx context.Context, data []byte) (interface{}, error) {
-		id, err := uuid.Parse(string(data))
-		if err != nil {
+		var user entity.User
+		if err := json.Unmarshal(data, &user); err != nil {
 			return nil, err
 		}
-		return DeleteProject(ctx, id)
+		return UpdateUser(ctx, user)
 	})
 }

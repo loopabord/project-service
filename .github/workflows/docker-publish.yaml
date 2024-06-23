@@ -100,6 +100,18 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: cosign sign ${{ steps.registry_slug.outputs.lowercase }}
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   deployment:
     needs: build
     runs-on: "ubuntu-latest"
@@ -131,5 +143,6 @@ jobs:
             --set=env[2].name=DATABASE_URL --set=env[2].value=${{ secrets.DATABASE_URL }} 
             --set=env[3].name=DATABASE_USER --set=env[3].value=${{ secrets.DATABASE_USER }} 
             --set=env[4].name=DATABASE_PASSWORD --set=env[4].value=${{ secrets.DATABASE_PASSWORD }} 
+            --set=env[5].name=DATABASE_PORT --set=env[5].value=${{ secrets.DATABASE_PORT }} 
             --timeout 1m0s
           kubeconfig: '${{ secrets.KUBECONFIG }}'

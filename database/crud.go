@@ -74,10 +74,14 @@ func DeleteProject(ctx context.Context, id uuid.UUID, logger *zap.SugaredLogger)
 
 func UpdateProjectsAuthorName(ctx context.Context, user *entity.User, logger *zap.SugaredLogger) error {
 	logger.Infof("Updating author_name for projects with author ID: %s", user.Id)
+
+	// Assuming your table is named "projects"
 	_, err := db.NewUpdate().
+		Model((*entity.Project)(nil)). // Specify the table by using Model
 		Set("author_name = ?", user.Name).
 		Where("author_id = ?", user.Id).
 		Exec(ctx)
+
 	if err != nil {
 		logger.Errorw("Failed to update projects' author_name", "error", err)
 		return err

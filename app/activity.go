@@ -98,6 +98,7 @@ func DeleteProject(ctx context.Context, id uuid.UUID) (string, error) {
 }
 
 func UpdateUser(ctx context.Context, user entity.User) (string, error) {
+	log.Println("updating username")
 	result, err := withDBAndLogger(ctx, func(ctx context.Context, logger *zap.SugaredLogger) (interface{}, error) {
 		err := database.UpdateProjectsAuthorName(ctx, &user, logger)
 		if err != nil {

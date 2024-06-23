@@ -50,6 +50,7 @@ func main() {
 	nc.Subscribe("ReadProject", app.ReadProjectHandler())
 	nc.Subscribe("ReadAllProjects", app.ReadAllProjectsHandler())
 	nc.Subscribe("DeleteProject", app.DeleteProjectHandler())
+	nc.Subscribe("UserUpdated", app.UpdateUserHandler())
 
 	// Keep the connection alive
 	select {}
