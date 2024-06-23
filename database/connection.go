@@ -40,8 +40,9 @@ func Initialize() error {
 	databasePassword := os.Getenv("DATABASE_PASSWORD")
 	databaseURL := os.Getenv("DATABASE_URL")
 	database := os.Getenv("DATABASE")
+	databasePort := os.Getenv("DATABASE_PORT")
 
-	dsn := fmt.Sprintf("postgres://%s:%s@%s:5433/%s?sslmode=disable", databaseUser, databasePassword, databaseURL, database)
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", databaseUser, databasePassword, databaseURL, databasePort, database)
 	log.Println(dsn)
 	sqldb, err := sql.Open("postgres", dsn)
 	if err != nil {
